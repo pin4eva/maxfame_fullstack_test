@@ -1,0 +1,34 @@
+<div class="review-step">
+  <p-card header="Review Your Information" [style]="{'margin-bottom': '1rem'}">
+    <div class="review-section">
+      <div class="review-item">
+        <span class="review-label">Name:</span>
+        <span class="review-value">{{ formData.name }}</span>
+      </div>
+
+      <div class="review-item">
+        <span class="review-label">Email:</span>
+        <span class="review-value">{{ formData.email }}</span>
+      </div>
+
+      <p-divider></p-divider>
+
+      <div class="review-item">
+        <span class="review-label">Rating:</span>
+        <div class="rating-display">
+          <p-rating
+            [ngModel]="formData.rating"
+            [readonly]="true"
+            [stars]="5"
+          ></p-rating>
+          <span class="review-value">({{ formData.rating }}/5)</span>
+        </div>
+      </div>
+
+      <div class="review-item">
+        <span class="review-label">Feedback:</span>
+        <span class="review-value feedback-text">{{ formData.feedback }}</span>
+      </div>
+    </div>
+  </p-card>
+</div>

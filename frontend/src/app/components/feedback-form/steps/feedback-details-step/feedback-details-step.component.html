@@ -1,0 +1,30 @@
+<div class="feedback-details-step">
+  <div class="form-field">
+    <p-floatlabel>
+      <textarea
+        pTextarea
+        id="feedback"
+        [(ngModel)]="formData.feedback"
+        (ngModelChange)="onFeedbackChange($event)"
+        [class.ng-invalid]="feedbackErrors.length > 0"
+        rows="5"
+        required
+      ></textarea>
+      <label for="feedback">Your Feedback *</label>
+    </p-floatlabel>
+    <app-invalid-message [errors]="feedbackErrors"></app-invalid-message>
+  </div>
+
+  <div class="form-field">
+    <div class="rating-field">
+      <label for="rating">Rating *</label>
+      <p-rating
+        id="rating"
+        [(ngModel)]="formData.rating"
+        (ngModelChange)="onRatingChange($event)"
+        [stars]="5"
+      ></p-rating>
+      <app-invalid-message [errors]="ratingErrors"></app-invalid-message>
+    </div>
+  </div>
+</div>

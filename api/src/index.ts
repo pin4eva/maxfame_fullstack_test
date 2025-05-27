@@ -6,7 +6,7 @@ import feedbackRoutes from './routes/feedbackRoutes';
 import { errorHandler } from './middleware/errorHandler';
 import { logger } from './middleware/logger';
 import { setupSwagger } from './config/swagger';
-
+import cors, { CorsOptions } from 'cors';
 // Load environment variables
 dotenv.config();
 
@@ -23,25 +23,11 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(logger);
 
 // CORS middleware
-app.use((req, res, next) => {
-  const origin = process.env.CORS_ORIGIN || '*';
-  res.header('Access-Control-Allow-Origin', origin);
-  res.header(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PUT, DELETE, OPTIONS, PATCH',
-  );
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-  );
-  res.header('Access-Control-Allow-Credentials', 'true');
-
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+const corsOptions: CorsOptions = {
+  origin: 'http://localhost:4200',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // Database connection
 const connectDB = async () => {

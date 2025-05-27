@@ -1,0 +1,32 @@
+<div class="personal-info-step">
+  <div class="form-field">
+    <p-floatlabel>
+      <input
+        pInputText
+        id="name"
+        [(ngModel)]="formData.name"
+        (ngModelChange)="onNameChange($event)"
+        [class.ng-invalid]="nameErrors.length > 0"
+        required
+      />
+      <label for="name">Full Name *</label>
+    </p-floatlabel>
+    <app-invalid-message [errors]="nameErrors"></app-invalid-message>
+  </div>
+
+  <div class="form-field">
+    <p-floatlabel>
+      <input
+        pInputText
+        id="email"
+        type="email"
+        [(ngModel)]="formData.email"
+        (ngModelChange)="onEmailChange($event)"
+        [class.ng-invalid]="emailErrors.length > 0"
+        required
+      />
+      <label for="email">Email Address *</label>
+    </p-floatlabel>
+    <app-invalid-message [errors]="emailErrors"></app-invalid-message>
+  </div>
+</div>

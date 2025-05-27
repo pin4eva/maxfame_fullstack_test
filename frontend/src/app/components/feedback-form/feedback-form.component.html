@@ -1,0 +1,93 @@
+<div class="feedback-form">
+  <div class="form-container" [class.loading-overlay]="isSubmitting" [class.submitting]="isSubmitting">
+    <!-- Form Header -->
+    <div class="form-header">
+      <h1 class="form-title">
+        <i class="pi pi-comment"></i>
+        Feedback Form
+      </h1>
+      <p class="form-subtitle">We value your feedback and suggestions</p>
+    </div>
+
+    <!-- Progress Steps -->
+    <div class="steps-container">
+      <p-steps [model]="steps" [activeIndex]="currentStepIndex" [readonly]="true"></p-steps>
+    </div>
+
+    <!-- Step Content -->
+    <div class="step-content">
+      <!-- Personal Information Step -->
+      <app-personal-info-step
+        *ngIf="currentStep === 'PERSONAL_INFO'"
+        [formData]="formData"
+        (dataChange)="onDataChange($event)">
+      </app-personal-info-step>
+
+      <!-- Feedback Details Step -->
+      <app-feedback-details-step
+        *ngIf="currentStep === 'FEEDBACK_DETAILS'"
+        [formData]="formData"
+        (dataChange)="onDataChange($event)">
+      </app-feedback-details-step>
+
+      <!-- Review Step -->
+      <app-review-step
+        *ngIf="currentStep === 'REVIEW'"
+        [formData]="formData">
+      </app-review-step>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <div class="action-group">
+        <button
+          pButton
+          type="button"
+          label="Previous"
+          icon="pi pi-chevron-left"
+          class="btn-secondary"
+          [disabled]="!canGoPrevious || isSubmitting"
+          (click)="onPrevious()">
+        </button>
+      </div>
+
+      <div class="action-group">
+        <button
+          *ngIf="currentStep !== 'REVIEW'"
+          pButton
+          type="button"
+          label="Next"
+          icon="pi pi-chevron-right"
+          iconPos="right"
+          class="btn-primary"
+          [disabled]="!canGoNext || isSubmitting"
+          (click)="onNext()">
+        </button>
+
+        <button
+          *ngIf="currentStep === 'REVIEW'"
+          pButton
+          type="submit"
+          label="Submit Feedback"
+          icon="pi pi-send"
+          iconPos="right"
+          class="btn-submit"
+          [disabled]="!canGoNext || isSubmitting"
+          [loading]="isSubmitting"
+          (click)="onSubmit()">
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <p-progressSpinner
+      *ngIf="isSubmitting"
+      [style]="{'position': 'absolute', 'top': '50%', 'left': '50%', 'transform': 'translate(-50%, -50%)', 'z-index': '11'}"
+      strokeWidth="3"
+      animationDuration="1s">
+    </p-progressSpinner>
+  </div>
+</div>
+
+<!-- Toast for notifications -->
+<p-toast position="top-right"></p-toast>
